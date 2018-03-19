@@ -1,0 +1,120 @@
+
+//分页查询的复习
+-- 查询 emp 表中的 前 5 条数据 rownum
+SELECT ROWNUM ,ENAME ,EMPNO from emp where ROWNUM <=5;
+
+-- 查询 emp 表中的  qian 10 tiao shu ju
+
+SELECT ROWNUM ,ENAME ,EMPNO from emp where ROWNUM <=10;
+
+-- 查询 emp 表中 的  6 - 到 10 条数据
+-- 思路 显示 查询     SELECT ROWNUM ,ENAME ,EMPNO from emp where ROWNUM <=10;  temp 临时表
+
+-- 在 temp 中 查询 rownum > 6 的数据
+
+-- 用子查询  完成分页
+
+select * from (  SELECT ROWNUM rn ,ENAME ,EMPNO from emp where ROWNUM <=10) temp where temp.rn >=6;
+
+
+获取数据（index.jsp）
+
+1.搞定界面
+
+2.在注册 成功界面   点击 进入主页   进入到 book 控制器中 获取数据  
+    
+    1.判断 获取数据 
+    
+       BookServet
+       
+       bookService  - > bookDaoImpl(持久层的操作db) 
+       
+    2.完成数据请求 （分页的操作）
+
+3.请求转发 到  index.jsp 界面(要传递数据)
+
+底部的上一页下一页
+  
+  1.查询数据中 书籍的数量  有多少本  ? 查询数据拿到有多少本书 ;
+  
+  2.每页 显示 多少条数据    pageSize = 3
+  
+  3.当前的 页数                    page = 1( 默认给的是1 ) 
+  
+  显示有多少页 ? 总数 / pageSize;
+  
+    显示操作:jsp 界面
+   
+    如果 当前界面 显示   第一页    首页 和  上一页  不显示  
+    
+    如果你是             最后一页        尾页 和  下一页    不显示 
+    
+搜索框的处理
+
+   1.获取数据  到 book/searchBook
+   
+   2. 分页模糊查询   
+
+登录注册按钮的完成
+  
+  思路:
+             (sessionScope.user == null); 
+   如果 没有登录     未登录
+                                请登录 <a href="/login.jsp"></a>  点击登录 
+                                      
+             ---》user的控制器 （dao操作 操作数据库）
+             
+             ---> user != null
+             ---> 保存用户 (session.setArrt());
+             ---> 重定向 (book/getBooks);
+             ---> index.jsp 
+                                
+  如果你登录了       你好,zhangsan 
+  
+                               注销  (session中的保存用户给他移除)   
+              --->  user的控制器 ;
+              ---> 重定向 (book/getBooks);         
+              ---> index.jsp         
+                               
+                               
+购物车的查询:
+
+   通过  order这个  中的 username 来查询  （多表联查）
+   
+  购买的操作:
+ 
+ 1.修改items(订单订单详情中的  state= 1 ) 付款
+ 
+ 2.books 表中数据 要修改(库存)
+ 
+  添加购物车的操作:
+  
+  拿到 选择的 id  找 对应的书籍
+  
+  1.创建一个 order 订单  （oid,username）
+  
+  2，创建多items  
+  
+  就是添加到购物车中
+   
+ 权限的问题 :
+    如果 user 没有登录  不能进入到购物车 和 我的订单
+    
+  1.过滤器
+        如果是 我的订单，购物车 这2个操作  过滤 重定向(登录界面)
+    
+  考试:
+   
+    周六下午:
+   
+   javaSe,
+ 
+   javaWeb 
+       js
+       html
+       serlvet
+       jsp  
+       ajax  
+       jq   
+                  数据库   
+       jdbc           

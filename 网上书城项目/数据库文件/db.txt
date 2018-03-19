@@ -1,0 +1,8 @@
+登录system用户 密码:manager 
+
+给权限:
+GRANT dba TO scott;
+
+cmd 命令操作:
+操作:
+imp usename(用户名)/password(密码)@SID(数据库的名称) full=y  file= d:\data\xxxx.dmp ignore=y
